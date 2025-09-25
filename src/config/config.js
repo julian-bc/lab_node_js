@@ -8,9 +8,11 @@ const {
   DB_HOST,
   DB_PORT,
   DB_NAME,
+  TOKEN_SECRET,
 }= process.env
 
 export default {
   port: PORT || 3000,
-  databaseUrl: `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin` 
+  databaseUrl: `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`,
+  tokenSecret: TOKEN_SECRET, 
 }

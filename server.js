@@ -4,6 +4,8 @@ import morgan from "morgan";
 // import { connectDB } from "./src/libs/db.js"; 
 import authRouter from "./src/routes/auth.routes.js";
 import shoppingRouter from "./src/routes/shopping.routes.js"
+import cookieParser from "cookie-parser";
+import { authenticateToken } from "./src/middlewares/jwt.middleware.js";
 
 // memory db
 export const memoryDatabase = [
@@ -32,12 +34,13 @@ export const memoryDatabase = [
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(morgan('dev')); 
 
 // connectDB();
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/shopping", shoppingRouter);
+app.use("/api/v1/shopping", authenticateToken, shoppingRouter);
 
 app.listen(config.port, () => {
   console.log(`Server is running on http://localhost:${config.port}`);
